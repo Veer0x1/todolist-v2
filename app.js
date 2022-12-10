@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const date = require(__dirname + "/date.js");
 const _ = require("lodash");
+const port = process.env.PORT || 3000;
 
 const app = express();
 
@@ -14,9 +15,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 //connecting app to mongoDB
-mongoose.connect("mongodb+srv://veer:8440089101B%40lveer@atlascluster.ue0sv83.mongodb.net/todolistDB", {
-  useNewUrlParser: true,
-});
+mongoose.connect(
+  "mongodb+srv://veer:8440089101B%40lveer@atlascluster.ue0sv83.mongodb.net/todolistDB",
+  {
+    useNewUrlParser: true,
+  }
+);
 const itemSchema = {
   name: String,
 };
@@ -126,6 +130,4 @@ app.get("/about", function (req, res) {
   res.render("about");
 });
 
-app.listen(3000, function () {
-  console.log("Server started on port 3000");
-});
+app.listen(port, () => console.log(`server started on port ${port}`));
